@@ -10,9 +10,15 @@ function RegularUserActions(){
         <div className="app" style={{ backgroundImage: `url(${background})` }}>
             <span>&nbsp;&nbsp;</span>
             <div className="login-form" style={{backgroundColor: 'darkseagreen',}}>
-                <div className="title">Regular user page</div>
+                <div className="title">Regular user</div>
                 <div>
                     <span>&nbsp;&nbsp;</span>
+
+                    <div className="col-md-12 text-center">
+                        <Link to="/EditProfile">
+                            <Button as={Col} variant="success">Edit your profile</Button>
+                        </Link>
+                    </div>
 
                     <span>&nbsp;&nbsp;</span>
 

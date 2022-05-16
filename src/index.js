@@ -15,6 +15,9 @@ import CreateProfile from "./components/regularUser/CreateProfile";
 import RegularUserActions from "./components/regularUser/RegularUserActions";
 import LogInSpecialist from "./components/specialist/LogInSpecialist";
 import SignUpSpecialist from "./components/specialist/SignUpSpecialist";
+import SpecialistActions from "./components/specialist/SpecialistActions";
+import EditProfile from "./components/regularUser/EditProfile";
+
 
 const rootElement = document.getElementById("root");
 
@@ -28,9 +31,11 @@ render(
             <Route path="/SignUpRegularUser" element={<SignUpRegularUser />} />
             <Route path="/RegularUserActions" element={<RegularUserActions />} />
             <Route path="/CreateProfile" element={<CreateProfile />} />
+            <Route path="/EditProfile" element={<EditProfile />} />
 
             <Route path="/LogInSpecialist" element={<LogInSpecialist />} />
             <Route path="/SignUpSpecialist" element={<SignUpSpecialist />} />
+            <Route path="/SpecialistActions" element={<SpecialistActions />} />
 
             <Route path="/LogInAdmin" element={<LogInAdmin />} />
             <Route path="/SignUpAdmin" element={<SignUpAdmin />} />

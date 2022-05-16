@@ -10,7 +10,7 @@ function AdminActions(){
         <div className="app" style={{ backgroundImage: `url(${background})` }}>
             <span>&nbsp;&nbsp;</span>
             <div className="login-form" style={{backgroundColor: 'lightblue',}}>
-                <div className="title">Admin Page</div>
+                <div className="title">Admin</div>
                 <div>
                     <span>&nbsp;&nbsp;</span>
 

@@ -20,8 +20,8 @@ function CreateProfile(){
         regularUser: []
     });
     const [activityLevels, setActivityLevels] = useState( [] );
-    const [checkedList, setCheckedList] = useState(new Array(activityLevels.length).fill(false));
-    const[selectedLevel, setSelectedLevel] = useState("");
+    const [checkedList] = useState(new Array(activityLevels.length).fill(false));
+    const [selectedLevel, setSelectedLevel] = useState("");
 
     useEffect(() => {
         fetch('http://localhost:8080/health-reset/activityLevel/index')
@@ -40,6 +40,7 @@ function CreateProfile(){
         weight: "invalid weight",
         height: "invalid height",
         birthdate: "invalid birthdate",
+        activityLevel: "activity level was not selected",
         weightGoal: "invalid weight goal",
         nrOfStepsGoal: "invalid number of steps goal"
     };
@@ -61,7 +62,10 @@ function CreateProfile(){
                 } else if(response.data === "invalid_birthdate"){
                     setErrorMessages({name: "birthdate", message: errors.birthdate});
                     localStorage.removeItem("profile");
-                } else if (response.data === "invalid_weightGoal"){
+                } else if(response.data === "invalid_activityLevel"){
+                    setErrorMessages({name: "activityLevel", message: errors.activityLevel});
+                    localStorage.removeItem("profile");
+                }  else if (response.data === "invalid_weightGoal"){
                     setErrorMessages({name: "weightGoal", message: errors.weightGoal});
                     localStorage.removeItem("profile");
                 } else if(response.data === "invalid_nrOfStepsGoal"){
@@ -72,11 +76,9 @@ function CreateProfile(){
                     localStorage.setItem("profile", JSON.stringify(profileRegistration));
                 }
             })
-
             .catch((error) => {
                 console.error("There was an error!", error.response.data.message)
             });
-
     };
 
     const handleInput = (event) => {
@@ -94,12 +96,16 @@ function CreateProfile(){
         setProfileRegistration({ ...profileRegistration, activityLevel: selectedLevel});
     };
 
+    useEffect(() => {
+        setProfileRegistration({ ...profileRegistration, activityLevel: selectedLevel});
+    }, [selectedLevel])
+
+    console.log(profileRegistration)
+
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="error">{errorMessages.message}</div>
         );
-
-    console.log(profileRegistration)
 
     const renderForm = (
         <div className="form">
@@ -131,7 +137,7 @@ function CreateProfile(){
                 <div className="input-container">
                     <label>Activity level: </label>
                     <form>
-                        {activityLevels.map(({ id, activityLevel}, index) => (
+                        {activityLevels.map(({activityLevel}) => (
                             <div key={activityLevel}>
                                 <input
                                     type="radio"
@@ -144,6 +150,7 @@ function CreateProfile(){
                             </div>
                         ))}
                     </form>
+                    {renderErrorMessage("activityLevel")}
                 </div>
                 <div className="input-container">
                     <label>Weight goal(kg) </label>

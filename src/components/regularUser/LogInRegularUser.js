@@ -48,6 +48,7 @@ function LogInRegularUser(){
                 } else{
                     setIsSubmittedR(true);
                     localStorage.setItem("regularUser", JSON.stringify(regularUserRegistration));
+                    localStorage.setItem("regularUserUsername", JSON.stringify(regularUserRegistration.username));
                 }
                 console.log(response.data);
             })

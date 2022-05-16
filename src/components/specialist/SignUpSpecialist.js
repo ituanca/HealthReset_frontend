@@ -5,6 +5,7 @@ import {Link, Outlet} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Col} from "reactstrap";
 import background from "../../img/b.jpg";
+import axios from "axios";
 
 
 function SignUpRegularUser(){
@@ -33,27 +34,27 @@ function SignUpRegularUser(){
         // Prevent page reload
         event.preventDefault();
 
-        // axios
-        //     .post('http://localhost:8080/assignment2/customer/createAndValidate', specialistRegistration)
-        //     .then((response) => {
-        //         console.info(response);
-        //         if (response.data === "username_exists") {
-        //             setErrorMessagesSC({name: "username", message: errors.username});
-        //             localStorage.removeItem("customer");
-        //         } else if (response.data === "email_exists"){
-        //             setErrorMessagesSC({name: "email", message: errors.email});
-        //             localStorage.removeItem("customer");
-        //         }  else if (response.data === "invalid_email"){
-        //             setErrorMessagesSC({name: "invalid_email", message: errors.invalid_email});
-        //             localStorage.removeItem("customer");
-        //         } else{
-        //             setIsSubmittedSC(true);
-        //             localStorage.setItem("customer", JSON.stringify(specialistRegistration));
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.error("There was an error!", error.response.data.message)
-        //     });
+        axios
+            .post('http://localhost:8080/health-reset/specialist/signUp', specialistRegistration)
+            .then((response) => {
+                console.info(response);
+                if (response.data === "username_exists") {
+                    setErrorMessagesSS({name: "username", message: errors.username});
+                    localStorage.removeItem("specialist");
+                } else if (response.data === "email_exists"){
+                    setErrorMessagesSS({name: "email", message: errors.email});
+                    localStorage.removeItem("specialist");
+                }  else if (response.data === "invalid_email"){
+                    setErrorMessagesSS({name: "invalid_email", message: errors.invalid_email});
+                    localStorage.removeItem("specialist");
+                } else{
+                    setIsSubmittedSS(true);
+                    localStorage.setItem("specialist", JSON.stringify(specialistRegistration));
+                }
+            })
+            .catch((error) => {
+                console.error("There was an error!", error.response.data.message)
+            });
     };
 
     const renderErrorMessage = (nameErr) =>
@@ -115,14 +116,14 @@ function SignUpRegularUser(){
                 <div className="title">Sign Up</div>
                 {isSubmittedSS ?
                     <div>
-                        <div>
-                            Account created successfully
-                        </div>
+                        <h5 className="text-center">Specialist account was created successfully!</h5>
                         <span>&nbsp;&nbsp;</span>
-                        <Link to="/SpecialistActions">
+                        <div className="col-md-12 text-center">
                             <span>&nbsp;&nbsp;</span>
-                            <Button as={Col} variant="success">Go to specialist page</Button>
-                        </Link>
+                            <Link to="/SpecialistActions">
+                                <Button as={Col} variant="secondary">Go to specialist page</Button>
+                            </Link>
+                        </div>
                     </div>
                     : renderForm}
                 <Outlet />

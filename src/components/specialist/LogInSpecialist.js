@@ -4,6 +4,7 @@ import {Link, Outlet} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Col} from "reactstrap";
 import React, {useEffect, useState} from "react";
+import axios from "axios"
 
 function LogInSpecialist() {
 
@@ -28,29 +29,29 @@ function LogInSpecialist() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // axios
-        //     .get("http://localhost:8080/assignment2/admin/login", {
-        //         params: {
-        //             username: specialistRegistration.username,
-        //             password: specialistRegistration.password
-        //         }
-        //     })
-        //     .then((response) => {
-        //         if (response.data === "username_error") {
-        //             setErrorMessages({name: "uname", message: errors.uname});
-        //             localStorage.removeItem("admin");
-        //         } else if (response.data === "password_error"){
-        //             setErrorMessages({name: "pass", message: errors.pass});
-        //             localStorage.removeItem("customer");
-        //         } else{
-        //             setIsSubmitted(true);
-        //             localStorage.setItem("admin", JSON.stringify(specialistRegistration));
-        //         }
-        //         console.log(response.data);
-        //     })
-        //     .catch((error) =>
-        //         console.error("There was an error!", error.response.data.message)
-        //     );
+        axios
+            .get("http://localhost:8080/health-reset/specialist/login", {
+                params: {
+                    username: specialistRegistration.username,
+                    password: specialistRegistration.password
+                }
+            })
+            .then((response) => {
+                if (response.data === "username_error") {
+                    setErrorMessagesS({name: "uname", message: errors.uname});
+                    localStorage.removeItem("specialist");
+                } else if (response.data === "password_error"){
+                    setErrorMessagesS({name: "pass", message: errors.pass});
+                    localStorage.removeItem("specialist");
+                } else{
+                    setIsSubmittedS(true);
+                    localStorage.setItem("specialist", JSON.stringify(specialistRegistration));
+                }
+                console.log(response.data);
+            })
+            .catch((error) =>
+                console.error("There was an error!", error.response.data.message)
+            );
     };
 
     const renderErrorMessage = (name) =>
@@ -99,15 +100,14 @@ function LogInSpecialist() {
                 <div className="title">Sign In</div>
                 {isSubmittedS ?
                     <div>
-                        <div>
-                            Specialist has successfully logged in
-                            <span>&nbsp;&nbsp;</span>
-                        </div>
+                        <h5 className="text-center">Specialist has successfully logged in!</h5>
                         <span>&nbsp;&nbsp;</span>
-                        <Link to="/SpecialistActions">
+                        <div className="col-md-12 text-center">
                             <span>&nbsp;&nbsp;</span>
-                            <Button as={Col} variant="secondary">Go to specialist page</Button>
-                        </Link>
+                            <Link to="/SpecialistActions">
+                                <Button as={Col} variant="secondary">Go to specialist page</Button>
+                            </Link>
+                        </div>
                     </div>
                     : renderForm}
                 <Outlet />
