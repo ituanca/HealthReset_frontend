@@ -17,6 +17,8 @@ import LogInSpecialist from "./components/specialist/LogInSpecialist";
 import SignUpSpecialist from "./components/specialist/SignUpSpecialist";
 import SpecialistActions from "./components/specialist/SpecialistActions";
 import EditProfile from "./components/regularUser/EditProfile";
+import TrackActivity from "./components/regularUser/TrackActivity";
+import AddPhysicalExercise from "./components/admin/AddPhysicalExercise";
 
 
 const rootElement = document.getElementById("root");
@@ -32,6 +34,7 @@ render(
             <Route path="/RegularUserActions" element={<RegularUserActions />} />
             <Route path="/CreateProfile" element={<CreateProfile />} />
             <Route path="/EditProfile" element={<EditProfile />} />
+            <Route path="/TrackActivity" element={<TrackActivity />} />
 
             <Route path="/LogInSpecialist" element={<LogInSpecialist />} />
             <Route path="/SignUpSpecialist" element={<SignUpSpecialist />} />
@@ -41,6 +44,7 @@ render(
             <Route path="/SignUpAdmin" element={<SignUpAdmin />} />
             <Route path="/AdminActions" element={<AdminActions />} />
             <Route path="/AddPrimaryFood" element={<AddPrimaryFood />} />
+            <Route path="/AddPhysicalExercise" element={<AddPhysicalExercise/>} />
 
         </Routes>
     </BrowserRouter>,

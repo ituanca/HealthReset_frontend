@@ -23,6 +23,14 @@ function AdminActions(){
                     <span>&nbsp;&nbsp;</span>
 
                     <div className="col-md-12 text-center">
+                        <Link to="/AddPhysicalExercise">
+                            <Button as={Col} variant="primary">Add physical exercise</Button>
+                        </Link>
+                    </div>
+
+                    <span>&nbsp;&nbsp;</span>
+
+                    <div className="col-md-12 text-center">
                         <Link to="/">
                             <Button as={Col} variant="outline-dark">Go back</Button>
                         </Link>

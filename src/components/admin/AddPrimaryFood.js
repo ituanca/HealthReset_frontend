@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import ReactDOM from "react-dom";
+import React, {useState} from "react";
 import "../styles.css";
 import {Link, Outlet} from "react-router-dom";
 import {Button} from "react-bootstrap";

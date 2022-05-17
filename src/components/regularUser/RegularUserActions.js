@@ -23,6 +23,14 @@ function RegularUserActions(){
                     <span>&nbsp;&nbsp;</span>
 
                     <div className="col-md-12 text-center">
+                        <Link to="/TrackActivity">
+                            <Button as={Col} variant="success">Track today's activity</Button>
+                        </Link>
+                    </div>
+
+                    <span>&nbsp;&nbsp;</span>
+
+                    <div className="col-md-12 text-center">
                         <Link to="/">
                             <Button as={Col} variant="outline-dark">Go back</Button>
                         </Link>
