@@ -35,6 +35,7 @@ function AddPhysicalExercise(){
 
     const errors = {
         name: "invalid name",
+        exists_name: "exercise already exists",
         typeOfExercise: "unspecified type of exercise",
         caloriesBurnedPerMinute: "invalid number of calories"
     };
@@ -56,6 +57,8 @@ function AddPhysicalExercise(){
                 console.info(response);
                 if (response.data === "name_error") {
                     setErrorMessages({name: "name", message: errors.name});
+                } else if(response.data === "exercise_exists"){
+                    setErrorMessages({name: "exists_name", message: errors.exists_name});
                 } else if(response.data === "typeOfExercise_error"){
                     setErrorMessages({name: "typeOfExercise", message: errors.typeOfExercise});
                 } else if (response.data === "calories_error"){
@@ -105,6 +108,7 @@ function AddPhysicalExercise(){
                                        name="name" required
                                        id="name"/>
                                 {renderErrorMessage("name")}
+                                {renderErrorMessage("exists_name")}
                             </div>
                             <div className="input-container">
                                 <label>Type of exercise: </label>
@@ -147,8 +151,8 @@ function AddPhysicalExercise(){
         <div className="app" style={{ backgroundImage: `url(${background})` }}>
             <span>&nbsp;&nbsp;</span>
             <div className="login-form" style={{backgroundColor: 'lightblue',}}>
-                <div className="title">Add primary food</div>
-                {isSubmitted ? <h5 className="text-center">Food was added successfully!</h5> : renderForm}
+                <div className="title">Add a physical exercise</div>
+                {isSubmitted ? <h5 className="text-center">Exercise was added successfully!</h5> : renderForm}
                 <nav>
                     <span>&nbsp;&nbsp;</span>
                     <div className="col-md-12 text-center">

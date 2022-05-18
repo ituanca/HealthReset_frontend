@@ -192,6 +192,12 @@ function EditProfile(){
                 <div className="button-container">
                     <input type="submit"/>
                 </div>
+                <span>&nbsp;&nbsp;</span>
+                <div className="col-md-12 text-center">
+                    <Link to="/RegularUserActions">
+                        <Button as={Col} variant="outline-dark">Go back</Button>
+                    </Link>
+                </div>
             </form>
         </div>
     );
