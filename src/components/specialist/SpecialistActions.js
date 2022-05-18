@@ -14,6 +14,12 @@ function SpecialistActions(){
                 <div>
                     <span>&nbsp;&nbsp;</span>
 
+                    <div className="col-md-12 text-center">
+                        <Link to="/AddRoutine">
+                            <Button as={Col} variant="secondary">Add routine</Button>
+                        </Link>
+                    </div>
+
                     <span>&nbsp;&nbsp;</span>
 
                     <div className="col-md-12 text-center">

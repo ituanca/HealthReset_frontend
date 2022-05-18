@@ -14,10 +14,10 @@ function TrackActivity(){
     const [trackedActivity, setTrackedActivity] = useState({
         date: "",
         nrOfSteps: "",
-        listOfPhysicalExercises: {},
+        listOfTrackedExercises: {},
         burnedCalories: 0,
         listOfTrackedFood: {},
-        eatenCalories: "",
+        eatenCalories: 0,
         regularUser: []
     });
     const [physicalExercises, setPhysicalExercises] = useState( [] );
@@ -43,6 +43,7 @@ function TrackActivity(){
         eatenCalories: 0
     } );
     const [mealsOfTheDay, setMealsOfTheDay] = useState( [] );
+    const [disable, setDisable] = React.useState(false);
 
 
     // useEffect(() => {
@@ -94,9 +95,11 @@ function TrackActivity(){
     const errors = {
         nrOfSteps: "invalid number",
         date: "date not selected",
-        timeOfExecution: "invalid number of minutes",
-        eatenQuantity: "invalid quantity"
+        //timeOfExecution: "invalid number of minutes",
+        //eatenQuantity: "invalid quantity"
     };
+
+    console.log(physicalExercises)
 
     const handleSubmit = (event) => {
         // Prevent page reload
@@ -108,12 +111,6 @@ function TrackActivity(){
                 console.info(response);
                 if (response.data === "invalid_nrOfSteps") {
                     setErrorMessages({name: "nrOfSteps", message: errors.nrOfSteps});
-                    localStorage.removeItem("trackedActivity");
-                } else if(response.data === "invalid_timeOfExecution"){
-                    setErrorMessages({name: "timeOfExecution", message: errors.timeOfExecution});
-                    localStorage.removeItem("trackedActivity");
-                } else if(response.data === "invalid_quantity"){
-                    setErrorMessages({name: "eatenQuantity", message: errors.eatenQuantity});
                     localStorage.removeItem("trackedActivity");
                 } else {
                     setIsSubmitted(true);
@@ -149,16 +146,23 @@ function TrackActivity(){
         setCurrentExercise({...currentExercise, burnedCalories: caloriesBurnedPerMinute * timeOfExecution})
         setExecutedExercises([...executedExercises, currentExercise])
         setTrackedActivity({...trackedActivity,
-            listOfPhysicalExercises: executedExercises,
+            listOfTrackedExercises: executedExercises,
             burnedCalories: trackedActivity.burnedCalories + (caloriesBurnedPerMinute * timeOfExecution)});
     }
+
+    // useEffect( () => {
+    //     //console.log(selectedRestaurant)
+    //     if(currentExercise){
+    //         setDisable(true)
+    //     }
+    // },[currentExercise])
 
     useEffect(() => {
         setExecutedExercises([ ...executedExercises]);
     }, [currentExercise])
 
     useEffect(() => {
-        setTrackedActivity({ ...trackedActivity, listOfPhysicalExercises: executedExercises});
+        setTrackedActivity({ ...trackedActivity, listOfTrackedExercises: executedExercises});
     }, [executedExercises])
 
     const handleEatenQuantity = (event) => {
@@ -172,7 +176,7 @@ function TrackActivity(){
         setEatenFood([...eatenFood, currentEatenFood])
         setTrackedActivity({...trackedActivity,
             listOfTrackedFood: eatenFood,
-            eatenCalories: trackedActivity.eatenCalories + (calories * eatenQuantity / quantity)});
+            eatenCalories: parseFloat(trackedActivity.eatenCalories) + (calories * eatenQuantity / quantity)});
     }
 
     useEffect(() => {
@@ -196,7 +200,6 @@ function TrackActivity(){
                            value={trackedActivity.date}
                            onChange={handleInput}
                            name="date" required/>
-                    {renderErrorMessage("date")}
                 </div>
                 <div className="input-container">
                     <label>Number of steps </label>
@@ -233,13 +236,12 @@ function TrackActivity(){
                         </tr>
                         <tr bgcolor="#ffffff">
                             <td>{currentExercise.name}</td>
-                            <td>{currentExercise.typeOfExercise}</td>
+                            <td>{currentExercise.typeOfExercise.toString()}</td>
                             <td>
                                 <input type="number"
                                        value={currentExercise.timeOfExecution}
                                        onChange={handleTimeOfExecution}
                                        name="timeOfExecution"/>
-                                {renderErrorMessage("timeOfExecution")}
                             </td>
                             <td>
                                 <Button as={Col}
@@ -325,7 +327,6 @@ function TrackActivity(){
                                        value={currentEatenFood.eatenQuantity}
                                        onChange={handleEatenQuantity}
                                        name="eatenQuantity"/>
-                                {renderErrorMessage("eatenQuantity")}
                             </td>
                             <td>
                                 <Button as={Col}

@@ -19,6 +19,7 @@ import SpecialistActions from "./components/specialist/SpecialistActions";
 import EditProfile from "./components/regularUser/EditProfile";
 import TrackActivity from "./components/regularUser/TrackActivity";
 import AddPhysicalExercise from "./components/admin/AddPhysicalExercise";
+import AddRoutine from "./components/specialist/AddRoutine";
 
 
 const rootElement = document.getElementById("root");
@@ -39,6 +40,7 @@ render(
             <Route path="/LogInSpecialist" element={<LogInSpecialist />} />
             <Route path="/SignUpSpecialist" element={<SignUpSpecialist />} />
             <Route path="/SpecialistActions" element={<SpecialistActions />} />
+            <Route path="/AddRoutine" element={<AddRoutine />} />
 
             <Route path="/LogInAdmin" element={<LogInAdmin />} />
             <Route path="/SignUpAdmin" element={<SignUpAdmin />} />
