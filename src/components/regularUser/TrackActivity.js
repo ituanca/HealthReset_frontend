@@ -25,7 +25,6 @@ function TrackActivity(){
     const [currentExercise, setCurrentExercise] = useState( {
         name: "",
         timeOfExecution: "",
-        typeOfExercise: "",
         caloriesBurnedPerMinute: "",
         burnedCalories: 0
     } );
@@ -60,7 +59,7 @@ function TrackActivity(){
     // }, []);
 
     useEffect(() => {
-        fetch('http://localhost:8080/health-reset/trackedExercise/index')
+        fetch('http://localhost:8080/health-reset/physicalExercise/index')
             .then((response) => response.json())
             .then((json) => {
                 setPhysicalExercises(json);
@@ -80,7 +79,7 @@ function TrackActivity(){
             });
         console.log(food)
 
-        fetch('http://localhost:8080/health-reset/trackedFood/index')
+        fetch('http://localhost:8080/health-reset/primaryFood/index')
             .then((response) => response.json())
             .then((json) => {
                 setFood(json);
@@ -91,6 +90,8 @@ function TrackActivity(){
         console.log(food)
 
     }, []);
+
+    console.log(physicalExercises)
 
     const errors = {
         nrOfSteps: "invalid number",
@@ -229,14 +230,12 @@ function TrackActivity(){
                     <table cellSpacing="3" bgcolor="#000000">
                         <tr bgcolor="#ffffff">
                             <th width="15%">Exercise</th>
-                            <th width="15%">Type</th>
                             <th width="15%">Time of execution(minutes)</th>
                             <th width="20%">Compute calories</th>
                             <th width="15%">Burned calories</th>
                         </tr>
                         <tr bgcolor="#ffffff">
                             <td>{currentExercise.name}</td>
-                            <td>{currentExercise.typeOfExercise.toString()}</td>
                             <td>
                                 <input type="number"
                                        value={currentExercise.timeOfExecution}
@@ -260,7 +259,7 @@ function TrackActivity(){
                                 <div>
                                     Exercises:
                                     <ul>
-                                        {executedExercises.map(({name, typeOfExercise, timeOfExecution, caloriesBurnedPerMinute, burnedCalories}, key) => {
+                                        {executedExercises.map(({name, timeOfExecution, caloriesBurnedPerMinute, burnedCalories}, key) => {
                                             return (
                                                     <li>{name} - {caloriesBurnedPerMinute * timeOfExecution} burned calories</li>
                                             )
