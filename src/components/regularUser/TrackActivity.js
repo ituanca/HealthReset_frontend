@@ -42,21 +42,6 @@ function TrackActivity(){
         eatenCalories: 0
     } );
     const [mealsOfTheDay, setMealsOfTheDay] = useState( [] );
-    const [disable, setDisable] = React.useState(false);
-
-
-    // useEffect(() => {
-    //     fetch('http://localhost:8080/health-reset/physicalExercise/index')
-    //         .then((response) => response.json())
-    //         .then((json) => {
-    //             setPhysicalExercises(json);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    //     console.log(physicalExercises)
-    //     localStorage.setItem("physicalExercises", JSON.stringify(physicalExercises));
-    // }, []);
 
     useEffect(() => {
         fetch('http://localhost:8080/health-reset/physicalExercise/index')
