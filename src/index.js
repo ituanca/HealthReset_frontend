@@ -22,6 +22,8 @@ import AddPhysicalExercise from "./components/admin/AddPhysicalExercise";
 import AddRoutineFitnessProgram from "./components/specialist/AddRoutineFitnessProgram";
 import AddRoutineMealPlan from "./components/specialist/AddRoutineMealPlan";
 import AddRoutineDescription from "./components/specialist/AddRoutineDescription";
+import ManageRoutines from "./components/admin/ManageRoutines";
+import SearchForRoutines from "./components/regularUser/SearchForRoutines";
 
 
 const rootElement = document.getElementById("root");
@@ -38,6 +40,7 @@ render(
             <Route path="/CreateProfile" element={<CreateProfile />} />
             <Route path="/EditProfile" element={<EditProfile />} />
             <Route path="/TrackActivity" element={<TrackActivity />} />
+            <Route path="/SearchForRoutines" element={<SearchForRoutines />} />
 
             <Route path="/LogInSpecialist" element={<LogInSpecialist />} />
             <Route path="/SignUpSpecialist" element={<SignUpSpecialist />} />
@@ -51,6 +54,7 @@ render(
             <Route path="/AdminActions" element={<AdminActions />} />
             <Route path="/AddPrimaryFood" element={<AddPrimaryFood />} />
             <Route path="/AddPhysicalExercise" element={<AddPhysicalExercise/>} />
+            <Route path="/ManageRoutines" element={<ManageRoutines/>} />
 
         </Routes>
     </BrowserRouter>,

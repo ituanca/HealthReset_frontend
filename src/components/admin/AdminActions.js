@@ -31,6 +31,14 @@ function AdminActions(){
                     <span>&nbsp;&nbsp;</span>
 
                     <div className="col-md-12 text-center">
+                        <Link to="/ManageRoutines">
+                            <Button as={Col} variant="primary">Manage posted routines</Button>
+                        </Link>
+                    </div>
+
+                    <span>&nbsp;&nbsp;</span>
+
+                    <div className="col-md-12 text-center">
                         <Link to="/">
                             <Button as={Col} variant="outline-dark">Go back</Button>
                         </Link>

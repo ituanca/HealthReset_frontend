@@ -9,7 +9,6 @@ import background from "../../img/b.jpg";
 function AddRoutineFitnessProgram(){
 
     const [errorMessages, setErrorMessages] = useState({});
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [routine, setRoutine] = useState({
         name: "",
         description: "",
@@ -31,6 +30,7 @@ function AddRoutineFitnessProgram(){
     const [activityLevels, setActivityLevels] = useState( [] );
     const [checkedList] = useState(new Array(activityLevels.length).fill(false));
     const [selectedLevel, setSelectedLevel] = useState("");
+    const [dataIsValid, setDataIsValid] = useState(false);
 
     useEffect(() => {
 
@@ -67,7 +67,9 @@ function AddRoutineFitnessProgram(){
     }, []);
 
     const errors = {
-        name: "invalid name",
+        name: "name already exists",
+        empty_name: "specify a name for your routine",
+        activityLevel: "choose an activity level"
     };
 
     const renderErrorMessage = (name) =>
@@ -82,6 +84,7 @@ function AddRoutineFitnessProgram(){
             specialist: JSON.parse(localStorage.getItem('specialist'))});
         localStorage.setItem("routine", JSON.stringify(routine));
         console.log(routine);
+        setDataIsValid(false);
     }
 
     const handleChange = e => {
@@ -97,10 +100,6 @@ function AddRoutineFitnessProgram(){
     }, [selectedLevel])
 
 
-    useEffect(() => {
-        setSelectedExercises([ ...selectedExercises]);
-    }, [currentExercise])
-
     const handleAddFitnessProgram = e => {
         setEnableFitnessProgram(true);
     }
@@ -112,9 +111,44 @@ function AddRoutineFitnessProgram(){
     }
 
     useEffect(() => {
+        setSelectedExercises([ ...selectedExercises]);
         setRoutine({...routine, listOfPhysicalExercises: selectedExercises});
         localStorage.setItem("routine", JSON.stringify(routine));
-    }, [selectedExercises])
+    }, [currentExercise])
+
+    // useEffect(() => {
+    //     setRoutine({...routine, listOfPhysicalExercises: selectedExercises});
+    //     localStorage.setItem("routine", JSON.stringify(routine));
+    // }, [selectedExercises])
+
+    const handleGoNext = e => {
+        axios
+            .get("http://localhost:8080/health-reset/routine/checkIfExists", {
+                params: {
+                    name: routine.name,
+                }
+            })
+            .then((response) => {
+                if (response.data === "name_exists") {
+                    setErrorMessages({name: "name", message: errors.name});
+                    localStorage.removeItem("routine");
+                } else if (routine.name === "") {
+                    setErrorMessages({name: "empty_name", message: errors.empty_name});
+                    localStorage.removeItem("routine");
+                } else if (routine.activityLevel === "") {
+                    setErrorMessages({name: "activityLevel", message: errors.activityLevel});
+                    localStorage.removeItem("routine");
+                } else {
+                    setDataIsValid(true);
+                    localStorage.setItem("routine", JSON.stringify(routine));
+                }
+                console.log(response.data);
+            })
+            .catch((error) =>
+                console.error("There was an error!", error.response.data.message)
+            );
+    }
+
 
     console.log(routine)
 
@@ -122,6 +156,7 @@ function AddRoutineFitnessProgram(){
         <div className="form">
             <form>
                 <div>
+                    <div>
                     <div className="input-container">
                         <label>Give a name to this routine: </label>
                         <input type="text"
@@ -130,6 +165,7 @@ function AddRoutineFitnessProgram(){
                                name="name" required
                                id="name"/>
                         {renderErrorMessage("name")}
+                        {renderErrorMessage("empty_name")}
                     </div>
                     <div className="input-container">
                         <label>Select the activity level of the fitness program: </label>
@@ -146,8 +182,9 @@ function AddRoutineFitnessProgram(){
                                     <label>{activityLevel}</label>
                                 </div>
                             ))}
+                            {renderErrorMessage("activityLevel")}
                         </form>
-                        {renderErrorMessage("activityLevel")}
+
                     </div>
                     <div className="text-center">
                         <Button as={Col}
@@ -161,6 +198,11 @@ function AddRoutineFitnessProgram(){
                         <div className="input-container">
                             <label>Add some exercises to create a fitness program</label>
                             <form>
+                                <Button as={Col}
+                                        variant="secondary"
+                                        style={{display: 'flex', justifyContent: 'center'}}
+                                        onClick={() => handleAddExercise()}>Add to list
+                                </Button>
                                 {typesOfExercise.map(({typeOfExercise}) => {
                                     let p = typeOfExercise;
                                     return (
@@ -185,10 +227,6 @@ function AddRoutineFitnessProgram(){
                                                             }
                                                         })}
                                                     </select>
-                                                    <Button as={Col}
-                                                            variant="secondary"
-                                                            onClick={() => handleAddExercise()}>Add to list
-                                                    </Button>
                                                 </div>
                                             </div>
                                             <span>&nbsp;&nbsp;</span>
@@ -210,13 +248,27 @@ function AddRoutineFitnessProgram(){
                                 : null}
                         </div>
                         : null}
+                    </div>
+                    <Button as={Col}
+                            variant="secondary"
+                            style={{display: 'flex', justifyContent: 'center'}}
+                            onClick={() => handleGoNext()}>Check if data is valid
+                    </Button>
                 </div>
+                <span>&nbsp;&nbsp;</span>
+
                 <nav>
-                    <span>&nbsp;&nbsp;</span>
-                    <Link to="/AddRoutineMealPlan">
-                        <Button as={Col} variant="outline-success">Go to the next step: Create a meal plan!</Button>
-                    </Link>
-                    <span>&nbsp;&nbsp;</span>
+                    { dataIsValid ?
+                        <div>
+                            <Link to="/AddRoutineMealPlan">
+                                <Button
+                                    as={Col}
+                                    variant="outline-success"
+                                >Go to the next step: Create a meal plan!
+                                </Button>
+                            </Link>
+                        </div>
+                        : null}
                     <Link to="/SpecialistActions">
                         <Button as={Col} variant="outline-dark">Go back</Button>
                     </Link>

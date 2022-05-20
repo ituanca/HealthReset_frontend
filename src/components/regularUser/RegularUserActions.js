@@ -31,6 +31,14 @@ function RegularUserActions(){
                     <span>&nbsp;&nbsp;</span>
 
                     <div className="col-md-12 text-center">
+                        <Link to="/SearchForRoutines">
+                            <Button as={Col} variant="success">Search for routines</Button>
+                        </Link>
+                    </div>
+
+                    <span>&nbsp;&nbsp;</span>
+
+                    <div className="col-md-12 text-center">
                         <Link to="/">
                             <Button as={Col} variant="outline-dark">Go back</Button>
                         </Link>

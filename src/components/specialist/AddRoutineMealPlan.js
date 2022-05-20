@@ -104,6 +104,11 @@ function AddRoutineMealPlan(){
                     { enableMealPlan ?
                         <div>
                             <div className="input-container">
+                                <Button as={Col}
+                                        variant="secondary"
+                                        style={{display: 'flex', justifyContent: 'center'}}
+                                        onClick={() => handleAddFood()}>Add to list
+                                </Button>
                                 {mealsOfTheDay.map(({mealOfTheDay}) => {
                                     return (
                                         <div className="col" key={mealOfTheDay}>
@@ -122,10 +127,6 @@ function AddRoutineMealPlan(){
                                                         </option>
                                                     ))}
                                                 </select>
-                                                <Button as={Col}
-                                                        variant="secondary"
-                                                        onClick={() => handleAddFood()}>Add to list
-                                                </Button>
                                             </div>
                                         </div>
                                     )

@@ -14,7 +14,6 @@ function EditProfile(){
     const [activityLevels, setActivityLevels] = useState( [] );
     const [checkedList] = useState(new Array(activityLevels.length).fill(false));
     const [selectedLevel, setSelectedLevel] = useState("");
-    const [profileId, setProfileId] = useState({});
 
     useEffect(() => {
         fetch('http://localhost:8080/health-reset/activityLevel/index')
