@@ -16,7 +16,7 @@ function SearchForRoutines(){
 
 
     useEffect(() => {
-        fetch('http://localhost:8080/health-reset/routine/index')
+        fetch('http://localhost:8080/health-reset/routine/indexApproved')
             .then((response) => response.json())
             .then((json) => {
                 setRoutines(json);
@@ -24,7 +24,7 @@ function SearchForRoutines(){
             .catch((error) => {
                 console.log(error);
             });
-    })
+    }, [])
 
     const handleSelection = e => {
         for(var i = 0; i < routines.length; i++){
@@ -54,13 +54,13 @@ function SearchForRoutines(){
                             <div className="card-grid">
                                 <article className="card" style={{ backgroundColor: 'transparent'}} key={val.name}>
                                     <div className="card-content">
-                                        <h6 className="card-name"> <b>{val.name}</b>, by {val.specialist.name}</h6>
+                                        <h6 className="card-name" style={{ fontFamily: 'Georgia' }}> <b>{val.name}</b>, by {val.specialist.name}</h6>
                                         <div className="card-list" >
                                             <div>
                                                 {val.activityLevel}
                                                 <span>&nbsp;&nbsp;</span>
                                                 <Button as={Col}
-                                                        variant="primary"
+                                                        variant="outline-success"
                                                         onClick={() => {
                                                             setSelectedRoutine(val)
                                                             setEnableView(true)
@@ -80,6 +80,15 @@ function SearchForRoutines(){
                 { enableView ?
                     <div>
                         <span>&nbsp;&nbsp;</span>
+                        <div>
+                            <h4 style={{ fontFamily: 'Georgia' }}>
+                                <b>{selectedRoutine.name}</b>
+                            </h4>
+                            <div style={{ fontFamily: 'Lucida Handwriting' }}>
+                                by {selectedRoutine.specialist.name}
+                            </div>
+                            <span>&nbsp;&nbsp;</span>
+                        </div>
                         <div>
                             <b>Activity level:</b>
                             <div>
@@ -110,6 +119,14 @@ function SearchForRoutines(){
                     </div>
                     : null}
             </div>
+            <span>&nbsp;&nbsp;</span>
+            <div className="col-md-12 text-center">
+                <span>&nbsp;&nbsp;</span>
+                <Link to="/RegularUserActions">
+                    <Button as={Col} variant="outline-dark">Go back</Button>
+                </Link>
+            </div>
+            <span>&nbsp;&nbsp;</span>
         </div>
     );
 
