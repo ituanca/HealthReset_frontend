@@ -56,12 +56,6 @@ function AddRoutineDescription(){
         setEnableDescription(true);
     }
 
-    const handleDescriptionSaving = event => {
-        const value = event.target.value;
-        setRoutine({ ...routine, description : value});
-        localStorage.setItem("routine", JSON.stringify(routine));
-    }
-
     console.log(routine)
 
     const renderForm = (
@@ -89,15 +83,10 @@ function AddRoutineDescription(){
                                     className="form-control"
                                     value={routine.description}
                                     onChange={handleInput}
+                                    name="description"
                                     rows="8"/>
                             </div>
                             <span>&nbsp;&nbsp;</span>
-                            <div>
-                                <Button as={Col}
-                                        variant="secondary"
-                                        onClick={() => handleDescriptionSaving()}>Add to list
-                                </Button>
-                            </div>
                         </div>
                         : null}
                 </div>

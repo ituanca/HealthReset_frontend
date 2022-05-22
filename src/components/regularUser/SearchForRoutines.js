@@ -12,8 +12,6 @@ function SearchForRoutines(){
     const [enableView, setEnableView] = useState(false);
     const [routines, setRoutines] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selected, setSelected] = useState(false);
-
 
     useEffect(() => {
         fetch('http://localhost:8080/health-reset/routine/indexApproved')
@@ -96,24 +94,32 @@ function SearchForRoutines(){
                             </div>
                             <span>&nbsp;&nbsp;</span>
                         </div>
-                        <b>Fitness program:</b>
-                        <ul>
-                            {selectedRoutine.listOfPhysicalExercises.map(({id, name, typeOfExercise}, key) => {
-                                return (
-                                    <li>{name} ({typeOfExercise.typeOfExercise})</li>
-                                )
-                            })}
-                        </ul>
-                        <b>Meal plan:</b>
-                        <ul>
-                            {selectedRoutine.listOfFood.map(({id, name, mealOfTheDay}, key) => {
-                                return (
-                                    <li>{name} for {mealOfTheDay}</li>
-                                )
-                            })}
-                        </ul>
                         <div>
-                            <b>Description:</b> {selectedRoutine.description}
+                            <b>Fitness program:</b>
+                            <ul>
+                                {selectedRoutine.listOfPhysicalExercises.map(({id, name, typeOfExercise}, key) => {
+                                    return (
+                                        <li>{name} ({typeOfExercise.typeOfExercise})</li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                        <div>
+                            <b>Meal plan:</b>
+                            <ul>
+                                {selectedRoutine.listOfFood.map(({id, name, mealOfTheDay}, key) => {
+                                    return (
+                                        <li>{name} for {mealOfTheDay}</li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <b>Description:</b>
+                            <div>
+                                {selectedRoutine.description}
+                            </div>
                         </div>
                         <span>&nbsp;&nbsp;</span>
                     </div>
@@ -133,6 +139,7 @@ function SearchForRoutines(){
     return (
         <div className="App" style={{ backgroundImage: `url(${background})` }}>
             {/*<div className="login-form" style={{backgroundColor: 'darkseagreen',}}>*/}
+            <span>&nbsp;&nbsp;</span>
                 <div className="title">Search for a routine</div>
                 {isSubmitted ?
                     <div>

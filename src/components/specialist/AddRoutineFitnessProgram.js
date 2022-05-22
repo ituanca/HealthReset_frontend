@@ -254,12 +254,13 @@ function AddRoutineFitnessProgram(){
                             style={{display: 'flex', justifyContent: 'center'}}
                             onClick={() => handleGoNext()}>Check if data is valid
                     </Button>
-                </div>
-                <span>&nbsp;&nbsp;</span>
-
-                <nav>
-                    { dataIsValid ?
-                        <div>
+                    <span>&nbsp;&nbsp;</span>
+                    <nav>
+                        <Link to="/SpecialistActions">
+                            <Button as={Col} variant="outline-dark">Go back</Button>
+                        </Link>
+                        <span>&nbsp;&nbsp;</span>
+                        { dataIsValid ?
                             <Link to="/AddRoutineMealPlan">
                                 <Button
                                     as={Col}
@@ -267,12 +268,9 @@ function AddRoutineFitnessProgram(){
                                 >Go to the next step: Create a meal plan!
                                 </Button>
                             </Link>
-                        </div>
-                        : null}
-                    <Link to="/SpecialistActions">
-                        <Button as={Col} variant="outline-dark">Go back</Button>
-                    </Link>
-                </nav>
+                            : null}
+                    </nav>
+                </div>
             </form>
         </div>
     );
