@@ -16,6 +16,7 @@ function AddRoutineDescription(){
 
     const errors = {
         name: "invalid name",
+        description: "description is too long"
     };
 
     const renderErrorMessage = (name) =>
@@ -34,7 +35,10 @@ function AddRoutineDescription(){
                 if (response.data === "name_error") {
                     setErrorMessages({name: "name", message: errors.name});
                     localStorage.removeItem("routine");
-                } else {
+                } else if (response.data === "description_error") {
+                    setErrorMessages({name: "description", message: errors.description});
+                    localStorage.removeItem("routine");
+                }else {
                     setIsSubmitted(true);
                 }
             })
@@ -85,6 +89,7 @@ function AddRoutineDescription(){
                                     onChange={handleInput}
                                     name="description"
                                     rows="8"/>
+                                {renderErrorMessage("description")}
                             </div>
                             <span>&nbsp;&nbsp;</span>
                         </div>
